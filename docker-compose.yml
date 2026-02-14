@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  # Main RAG application
+  rag-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: multimodal-rag
+    ports:
+      - "8501:8501"  # Streamlit UI
+    volumes:
+      # Persist data between container restarts
+      - ./data:/app/data
+      - ./data/chroma_db:/app/data/chroma_db
+      - ./data/uploads:/app/data/uploads
+    environment:
+      # Pass environment variables
+      - CEREBRAS_API_KEY=${CEREBRAS_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - MODEL_NAME=${MODEL_NAME:-llama-3.3-70b}
+      - TEMPERATURE=${TEMPERATURE:-0.7}
+      - MAX_TOKENS=${MAX_TOKENS:-1000}
+      - TOP_K_RESULTS=${TOP_K_RESULTS:-5}
+      - SIMILARITY_THRESHOLD=${SIMILARITY_THRESHOLD:-0.3}
+    restart: unless-stopped
+    # Allocate more memory if needed
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 2G
+
+# Optional: Add a separate service for CLI operations
+  rag-cli:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: multimodal-rag-cli
+    volumes:
+      - ./data:/app/data
+      - ./data/chroma_db:/app/data/chroma_db
+      - ./data/uploads:/app/data/uploads
+    environment:
+      - CEREBRAS_API_KEY=${CEREBRAS_API_KEY}
+    entrypoint: ["python", "main.py"]
+    profiles:
+      - cli  # Only run when explicitly requested
