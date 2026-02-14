@@ -48,32 +48,32 @@ A production-ready **Retrieval-Augmented Generation (RAG)** system with **CLIP-p
 User Query
     ↓
 ┌─────────────────────────────────────────────────┐
-│  INPUT NODE                                      │
-│  - Parse query                                   │
+│  INPUT NODE                                     │
+│  - Parse query                                  │
 │  - Detect query type (text/image)               │
 └─────────────────────────────────────────────────┘
     ↓
 ┌─────────────────────────────────────────────────┐
-│  RETRIEVAL AGENT                                 │
+│  RETRIEVAL AGENT                                │
 │  - CLIP text encoder → query embedding          │
 │  - Search vector DB (ChromaDB)                  │
 │  - Retrieve: Top-K texts + images               │
 └─────────────────────────────────────────────────┘
     ↓
 ┌─────────────────────────────────────────────────┐
-│  VERIFICATION AGENT                              │
-│  - Compare answer vs sources                     │
-│  - Detect hallucinations                         │
-│  - Calculate confidence score                    │
-│  - Status: verified/unverified/hallucination     │
+│  VERIFICATION AGENT                             │
+│  - Compare answer vs sources                    │
+│  - Detect hallucinations                        │
+│  - Calculate confidence score                   │
+│  - Status: verified/unverified/hallucination    │
 └─────────────────────────────────────────────────┘
     ↓
 ┌─────────────────────────────────────────────────┐
-│  RESPONSE AGENT                                  │
-│  - Generate answer (Cerebras LLaMA 70B)        │
-│  - Include image references                      │
-│  - Add source citations                          │
-│  - Format final response                         │
+│  RESPONSE AGENT                                 │
+│  - Generate answer (Cerebras LLaMA 70B)         │
+│  - Include image references                     │
+│  - Add source citations                         │
+│  - Format final response                        │
 └─────────────────────────────────────────────────┘
     ↓
 Final Answer + Images + Sources + Confidence
