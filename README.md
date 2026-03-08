@@ -481,7 +481,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - **Issues**: [GitHub Issues](https://github.com/yourusername/multimodal-rag/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/yourusername/multimodal-rag/discussions)
-- **Email**: your.email@example.com
+- **Email**: ahmedessamhamam@gmail.com
 
 ---
 
